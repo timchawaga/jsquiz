@@ -1,0 +1,153 @@
+<!Doctype html>
+	<html lang="eng">
+		<head>
+		<link rel="stylesheet" type="css/text" href="/Users/administrator/desktop/style.css"/>
+		</head>
+		<body>
+				<button id="back" name="Back" value="">Back</button>
+				<button id="next" name="Next" value="">Next</button>
+
+
+			<div class="totalpage">
+				
+				<p><button name="caltotal" id="caltotal" value="calTotal">Calculate Total</button>
+				<input type="text" id="total">
+				</p>
+			</div>
+
+
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+		<script src="quiz.json"></script>
+		<script>
+
+			
+			
+
+
+
+			$(document).ready(function(){
+
+				function AJAX_JSON_Req( url ) {
+    			var AJAX_req = new XMLHttpRequest();
+    			AJAX_req.open( "GET", url, true );
+   				AJAX_req.setRequestHeader("Content-type", "application/json");
+ 
+   				AJAX_req.onreadystatechange = function(){
+   					var status = AJAX_req.status;
+        			if( AJAX_req.readyState == 4 && AJAX_req.status == 200 ){
+            			var response = JSON.parse( AJAX_req.responseText );
+            			document.write( response.name );
+        			}
+        			else (alert("Error" + status));
+    			}
+    			AJAX_req.send();
+			};
+			
+			
+
+			var allQuestions = AJAX_JSON_Req('file:///Users/administrator/desktop/quiz.json');
+				
+
+		
+			var index = 1;
+				
+				for (i = allQuestions.length; i > 0; i--){
+					var form = "<form class='formquiz' id='q"+ i +"'><h1 id='question"+ i +"'></h1>"+
+							"<ul>" +
+								"<li><input type='radio' name='cities' value='0' /><span id='choice0'></span></li>" +
+								"<li><input type='radio' name='cities' value='1' /><span id='choice1'></span></li>" +
+								"<li><input type='radio' name='cities' value='2' /><span id='choice2'></span></li>" +
+								"<li><input type='radio' name='cities' value='3' /><span id='choice3'></span></li>" +
+							"</ul>" +
+						"</form>";
+				
+					$("body").prepend(form);
+
+					$('input[type="radio"]').prop('checked', false);
+
+
+
+					$("#question" + i).text(allQuestions[(i-1)].question);
+							var choices = allQuestions[(i-1)].choices;
+							var thisForm = "#q" + i;
+
+							for(e = 0; e < choices.length; e++){
+
+								$(thisForm + ' #choice' + e).text(choices[e]);
+
+								};
+
+						
+
+				};
+
+				$("body").prepend("<p class='title'>Quiz!</p>")
+
+
+				$(".formquiz").hide();
+				
+				$('.totalpage').hide();
+				$('#back').hide();
+				var questionIDs = $('body form[id]');
+				var currentQ = questionIDs[0];
+				$(currentQ).show();
+
+				
+				var index = 0
+				$("#next").click(function(){
+
+					if(index < allQuestions.length){
+						if(!$('input[name=cities]:checked', currentQ).val()){
+							alert("Please select a value!");
+						}
+						
+						else{
+							$(currentQ).hide();
+							$('#back').show();
+							$(questionIDs[index+1]).fadeIn(1000);
+							currentQ = questionIDs[index +1];
+							index++;
+						}
+						
+					}
+					else {
+						$("#q" + index).hide();
+						$("#next").hide();
+						$(".totalpage").fadeIn(1000);
+					};
+				});
+
+				$("#back").click(function(){
+					
+					$(currentQ).hide();
+					currentQ = questionIDs[index-1];
+					$(currentQ).show();
+					index--;
+
+				});
+
+				var scoreCheck = 0;
+				
+				$("#caltotal").click(function(){
+					var radioButtons = $('input:radio[name="radio"]');
+					var checkedButtons = radioButtons.filter(':checked');
+					
+					checkedButtons.each(function(){
+						scoreCheck += parseInt($(this).val(), 10);
+					});
+					
+					$("#total").val(scoreCheck);
+				});
+					
+
+			});
+			
+		</script>
+	</body>
+</html>
+
+

@@ -1,0 +1,35 @@
+data = [{
+				"question": "What is the capital of Spain?",
+				"choices": ["China", "Madrid", "Paris", "Mexico City"],
+				"correctAnswer":1
+			},
+			{
+				"question":"What is the capital of USA?",
+				"choices": ["Texas", "Mexico", "Washington", "Boston"],
+				"correctAnswer":2
+			},
+			{
+				"question":"What is the capital of Germany?",
+				"choices": ["Brussels", "Frankfurt", "Vienna", "Berlin"],
+				"correctAnswer": 3
+			},
+			{
+				"question":"What is the capital of Pennsylvania?",
+				"choices":["Philadelphia", "Allentown", "Harrisburg", "Pittsburgh"],
+				"correctAnswer": 2
+			},
+			{
+				"question": "What is the capital of Australia?",
+				"choices":["Sydney", "Birsbane", "Christchurch", "Perth"],
+				"correctAnswer": 0
+			},
+			{
+				"question": "What's the capital of the UK?",
+				"choices":["Manchester", "Bristol", "Liverpool", "London"],
+				"correctAnswer": 3
+			},
+			{
+				"question":"What's the capital of Italy?",
+				"choices":["Rome", "Turin", "Milan", "Venice"],
+				"correctAnswer":0
+			}];
